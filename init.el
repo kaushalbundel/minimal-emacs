@@ -425,9 +425,8 @@
 (cond
  ((equal system-type 'darwin)
   (set-face-attribute 'default nil :family "SF Mono" :weight 'Regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'Regular :height 120)
-  (set-face-attribute 'corfu-default nil :font "SF Mono" :height 120)
-  (setq-default line-spacing 4))
+  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'Regular :height 120))
+;;  (set-face-attribute 'corfu-default nil :font "SF Mono" :height 120))
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
   (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110)
@@ -436,9 +435,16 @@
   (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 100)
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
 
-(use-package nerd-icons :defer 5)
-(use-package nerd-icons-completion :defer 5 :config (nerd-icons-completion-mode 1) (nerd-icons-completion-marginalia-setup))
-(use-package nerd-icons-dired :defer 5 :hook (dired-mode . nerd-icons-dired-mode))
+(use-package nerd-icons)
+
+(use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode 1)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+(use-package nerd-icons-dired
+  :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package doom-modeline
   :defer t
