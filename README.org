@@ -1,0 +1,11 @@
+* Key Concepts
+
+1. Configurations oriented towards using native functionality, limiting external packages.
+   - Why: Too many external packages make the program slow to use. This also limits debugging when eventually a problem arises.
+2. Using org mode just for taking notes for task management and other things, use related software.
+   - Why: Org works well only on Desktop, I feel a lot of org functionality is lacking on mobile.
+3. No RSS reading using emacs
+   - Why: See above
+4. Using Native keybinding (no evil mode)
+5. Key Takeaway: Keep the program as close to the basic makes it performant and easy to debug.
+  
