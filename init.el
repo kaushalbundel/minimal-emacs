@@ -71,6 +71,7 @@
 ;; Backups and lockfiles
 (setq make-backup-files nil)
 (setq create-lockfiles nil)
+(setq auto-save-default nil)
 
 ;; Unicode support
 (prefer-coding-system 'utf-8)
