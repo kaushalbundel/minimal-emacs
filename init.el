@@ -649,8 +649,14 @@
   :config
   (apheleia-global-mode +1))
 
+;; uv-mode keybindings clashing with org mode related keybindings, hence the function
 (use-package uv-mode
-  :hook (python-mode . uv-mode-auto-activate-hook))
+  :preface
+  (defun kaushal/uv-mode-activate-unless-org ()
+    "Activate `uv-mode' only if we aren't in an Org source editing buffer."
+    (unless (bound-and-true-p org-src-mode)
+      (uv-mode-auto-activate-hook)))
+  :hook (python-mode . kaushal/uv-mode-activate-unless-org))
 
 (use-package emmet-mode
   :hook ((sgml-mode-hook . emmet-mode)
