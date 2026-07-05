@@ -6,6 +6,6 @@
    - Why: Org works well only on Desktop, I feel a lot of org functionality is lacking on mobile.
 3. No RSS reading using emacs
    - Why: See above
-4. Using Native keybinding (no evil mode)
+4. Using Native keybinding (no +evil mode+ )
 5. Key Takeaway: Keep the program as close to the basic makes it performant and easy to debug.
   
