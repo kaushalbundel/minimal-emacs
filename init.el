@@ -87,7 +87,7 @@
 
 ;; OS-specific changes
 (when (equal system-type 'windows-nt)
-  (setq default-directory "C:/Users/kaush/"))
+  (setq default-directory "C:/Users/kaushal/"))
 
 (when (equal system-type 'darwin)
   (setq mac-option-modifier        'meta
@@ -107,9 +107,9 @@
   (setq ispell-local-dictionary-alist
         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
   (setenv "DICTIONARY" "en_US")
-  (setenv "DICPATH" "C:/Users/kaush/hunspell/")
+  (setenv "DICPATH" "C:/Users/kaushal/AppData/Roaming/fonts/")
   (setq ispell-hunspell-dict-paths-alist
-        '(("en_US" "C:/Users/kaush/hunspell/en_US.aff"))))
+        '(("en_US" "C:/Users/kaushal/AppData/Roaming/fonts/en_US.aff"))))
 
  ((equal system-type 'gnu/linux)
   (when (executable-find "hunspell")
@@ -412,7 +412,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(apheleia auto-package-update avy cape consult-denote consult-eglot
+              corfu-terminal crux denote-journal doom-modeline
+              embark-consult emmet-mode evil-collection
+              evil-commentary evil-surround exec-path-from-shell
+              indent-bars json-mode kind-icon magit marginalia
+              markdown-mode modus-themes nerd-icons-completion
+              nerd-icons-dired orderless org-modern rainbow-delimiters
+              rainbow-mode spacious-padding swift-mode uv-mode vertico
+              wgrep yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -422,16 +431,18 @@
 
 (cond
  ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "SF Mono" :weight 'Regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'Regular :height 120))
-;;  (set-face-attribute 'corfu-default nil :font "SF Mono" :height 120))
+  (set-face-attribute 'default nil :family "SF Mono" :weight 'regular :height 120)
+  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'regular :height 120)
+  (set-face-attribute 'corfu-default nil :font "SF Mono" :height 120))
+
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
   (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110)
   (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 100))
+
  ((equal system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 100)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
+  (set-face-attribute 'default nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)
+  (set-face-attribute 'variable-pitch nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)))
 
 (use-package nerd-icons)
 
@@ -668,7 +679,7 @@
     :config
     (setopt highlight-indent-guides-method 'character
             highlight-indent-guides-responsive 'top)))
- ((equal system-type 'gnu/linux)
+ ((memq system-type '(gnu/linux windows-nt))
   (use-package indent-bars
     :hook (prog-mode . indent-bars-mode)
     :config
