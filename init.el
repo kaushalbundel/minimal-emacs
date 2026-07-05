@@ -412,17 +412,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(apheleia auto-package-update avy cape consult-denote consult-eglot
-              corfu-terminal crux denote-journal doom-modeline
-              embark-consult emmet-mode evil evil-collection
-              evil-commentary evil-surround exec-path-from-shell
-              highlight-indent-guides json-mode kind-icon magit
-              marginalia markdown-mode modus-themes
-              nerd-icons-completion nerd-icons-dired orderless
-              org-modern rainbow-delimiters rainbow-mode
-              spacious-padding surround swift-mode uv-mode vertico
-              wgrep yaml-mode)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
