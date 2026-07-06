@@ -419,9 +419,9 @@
               evil-commentary evil-surround exec-path-from-shell
               indent-bars json-mode kind-icon magit marginalia
               markdown-mode modus-themes nerd-icons-completion
-              nerd-icons-dired orderless org-modern rainbow-delimiters
-              rainbow-mode spacious-padding swift-mode uv-mode vertico
-              wgrep yaml-mode)))
+              nerd-icons-dired orderless org-download org-modern
+              rainbow-delimiters rainbow-mode spacious-padding
+              swift-mode uv-mode vertico wgrep yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -432,13 +432,11 @@
 (cond
  ((equal system-type 'darwin)
   (set-face-attribute 'default nil :family "SF Mono" :weight 'regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'regular :height 120)
-  (set-face-attribute 'corfu-default nil :font "SF Mono" :height 120))
+  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'regular :height 120))
 
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
-  (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110)
-  (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 100))
+  (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110))
 
  ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)
@@ -593,6 +591,28 @@
           org-habit-preceding-days 7
           org-habit-show-all-today t))
 
+;; org-download
+(use-package org-download
+  :ensure t
+  :after org
+  :hook ((dired-mode . org-download-enable)
+         (org-mode . org-download-enable))
+  :bind
+  ("C-M-y" . org-download-clipboard)
+  :config
+  ;; General settings
+  (setq org-download-heading-lvl nil)
+  (setq org-download-backend "curl")
+  (setq-default org-download-image-dir "./images")
+  (setq org-download-image-attr-list
+        '("#+attr_html: :width 60% :align center"
+          "#+attr_latex: :width 0.6\\textwidth"))
+
+  ;; macOS-specific configuration for screenshots
+  (when (eq system-type 'darwin)
+    (setq org-download-screenshot-method "/usr/local/bin/pngpaste %s")))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Development Environments & Treesitter
@@ -699,52 +719,52 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-keybinding nil)
-  (setq evil-respect-visual-line-mode t)
-  (setq evil-undo-system 'undo-redo)
-  ;; Enable this if you want C-u to scroll up, more like pure Vim
-  ;(setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode)
-  ;; Configuring initial major mode for some modes
-  (evil-set-initial-state 'vterm-mode 'emacs))
+;; (use-package evil
+;;   :ensure t
+;;   :init
+;;   (setq evil-want-keybinding nil)
+;;   (setq evil-respect-visual-line-mode t)
+;;   (setq evil-undo-system 'undo-redo)
+;;   ;; Enable this if you want C-u to scroll up, more like pure Vim
+;;   ;(setq evil-want-C-u-scroll t)
+;;   :config
+;;   (evil-mode)
+;;   ;; Configuring initial major mode for some modes
+;;   (evil-set-initial-state 'vterm-mode 'emacs))
 
-(eval-when-compile
-  ;; It has to be defined before evil-colllection
-  (setq evil-collection-setup-minibuffer t))
+;; (eval-when-compile
+;;   ;; It has to be defined before evil-colllection
+;;   (setq evil-collection-setup-minibuffer t))
 
-;; vast collection of vim related keybindings (https://github.com/emacs-evil/evil-collection) should be studied
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
+;; ;; vast collection of vim related keybindings (https://github.com/emacs-evil/evil-collection) should be studied
+;; (use-package evil-collection
+;;   :after evil
+;;   :ensure t
+;;   :config
+;;   (evil-collection-init))
 
-;; surrounding keys
-(use-package evil-surround
-  :after evil
-  :ensure t
-  :commands global-evil-surround-mode
-  :custom
-  (evil-surround-pairs-alist
-   '((?\( . ("(" . ")"))
-     (?\[ . ("[" . "]"))
-     (?\{ . ("{" . "}"))
+;; ;; surrounding keys
+;; (use-package evil-surround
+;;   :after evil
+;;   :ensure t
+;;   :commands global-evil-surround-mode
+;;   :custom
+;;   (evil-surround-pairs-alist
+;;    '((?\( . ("(" . ")"))
+;;      (?\[ . ("[" . "]"))
+;;      (?\{ . ("{" . "}"))
 
-     (?\) . ("(" . ")"))
-     (?\] . ("[" . "]"))
-     (?\} . ("{" . "}"))
+;;      (?\) . ("(" . ")"))
+;;      (?\] . ("[" . "]"))
+;;      (?\} . ("{" . "}"))
 
-     (?< . ("<" . ">"))
-     (?> . ("<" . ">"))))
-  :hook (after-init . global-evil-surround-mode))
+;;      (?< . ("<" . ">"))
+;;      (?> . ("<" . ">"))))
+;;   :hook (after-init . global-evil-surround-mode))
 
-;; commenting out code
-(use-package evil-commentary
-  :after evil
-  :ensure t
-  :config
-  (evil-commentary-mode))
+;; ;; commenting out code
+;; (use-package evil-commentary
+;;   :after evil
+;;   :ensure t
+;;   :config
+;;   (evil-commentary-mode))
