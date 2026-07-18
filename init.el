@@ -421,7 +421,7 @@
               markdown-mode modus-themes nerd-icons-completion
               nerd-icons-dired orderless org-download org-modern
               rainbow-delimiters rainbow-mode spacious-padding
-              swift-mode uv-mode vertico wgrep yaml-mode)))
+              swift-mode swift-ts-mode uv-mode vertico wgrep yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -536,6 +536,27 @@
 
 (define-key global-map (kbd "C-g") #'kaushal/keyboard-quit-dwim)
 
+;; Script to create a quick markdown or anyother format file quickly
+(defun kaushal/create-dated-file()
+  "Create a file with specific extension and name. This replicates the functionality of file-create-date-time.py"
+  (interactive)
+  (let* ((extension (read-string "Enter file extension (default .org): " nil nil "org"))
+         (default-name (format-time-string "%Y-%m-%d"))
+         (name (read-string (format "Enter file name (default %s): " default-name) nil nil default-name))
+         ;; Ensuring the extension does not have a leading dot
+         (clean-ext (if (string-prefix-p "." extension)
+                        (substring extension 1)
+                      extension))
+         (file-name (format "%s.%s" name clean-ext)))
+    (if (file-exists-p file-name)
+        (message "Error: The file already Exists." file-name)
+      (write-region "" nil file-name)
+      (message "Success! File %s has been created." file-name)
+      (find-file file-name))))
+
+;;  adding a keybinding
+(define-key global-map (kbd "C-c f c") #'kaushal/create-dated-file)
+
 (use-package org-modern
   :custom
   (org-modern-block-indent t)
@@ -634,8 +655,12 @@
           (go-mode . go-ts-mode)
           (rust-mode . rust-ts-mode))))
 
+;; swift programming
 (use-package swift-mode
-  :mode "\\.playground\\'")
+    :ensure t
+    :mode "\\.swift\\'"
+    :interpreter "swift")
+
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
@@ -670,7 +695,7 @@
   (add-to-list 'eglot-server-programs
                '((go-mode go-ts-mode) . ("gopls")))
   (add-to-list 'eglot-server-programs
-               '(swift-mode . ("sourcekit-lsp"))))
+               '(swift-mode . ("xcrun" "sourcekit-lsp"))))
 
 ;; Prefer apheleia for asynchronous, non-blocking auto-formatting
 (use-package apheleia
@@ -719,52 +744,52 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package evil
-;;   :ensure t
-;;   :init
-;;   (setq evil-want-keybinding nil)
-;;   (setq evil-respect-visual-line-mode t)
-;;   (setq evil-undo-system 'undo-redo)
-;;   ;; Enable this if you want C-u to scroll up, more like pure Vim
-;;   ;(setq evil-want-C-u-scroll t)
-;;   :config
-;;   (evil-mode)
-;;   ;; Configuring initial major mode for some modes
-;;   (evil-set-initial-state 'vterm-mode 'emacs))
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-undo-system 'undo-redo)
+  ;; Enable this if you want C-u to scroll up, more like pure Vim
+  ;(setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode)
+  ;; Configuring initial major mode for some modes
+  (evil-set-initial-state 'vterm-mode 'emacs))
 
-;; (eval-when-compile
-;;   ;; It has to be defined before evil-colllection
-;;   (setq evil-collection-setup-minibuffer t))
+(eval-when-compile
+  ;; It has to be defined before evil-colllection
+  (setq evil-collection-setup-minibuffer t))
 
-;; ;; vast collection of vim related keybindings (https://github.com/emacs-evil/evil-collection) should be studied
-;; (use-package evil-collection
-;;   :after evil
-;;   :ensure t
-;;   :config
-;;   (evil-collection-init))
+;; vast collection of vim related keybindings (https://github.com/emacs-evil/evil-collection) should be studied
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
-;; ;; surrounding keys
-;; (use-package evil-surround
-;;   :after evil
-;;   :ensure t
-;;   :commands global-evil-surround-mode
-;;   :custom
-;;   (evil-surround-pairs-alist
-;;    '((?\( . ("(" . ")"))
-;;      (?\[ . ("[" . "]"))
-;;      (?\{ . ("{" . "}"))
+;; surrounding keys
+(use-package evil-surround
+  :after evil
+  :ensure t
+  :commands global-evil-surround-mode
+  :custom
+  (evil-surround-pairs-alist
+   '((?\( . ("(" . ")"))
+     (?\[ . ("[" . "]"))
+     (?\{ . ("{" . "}"))
 
-;;      (?\) . ("(" . ")"))
-;;      (?\] . ("[" . "]"))
-;;      (?\} . ("{" . "}"))
+     (?\) . ("(" . ")"))
+     (?\] . ("[" . "]"))
+     (?\} . ("{" . "}"))
 
-;;      (?< . ("<" . ">"))
-;;      (?> . ("<" . ">"))))
-;;   :hook (after-init . global-evil-surround-mode))
+     (?< . ("<" . ">"))
+     (?> . ("<" . ">"))))
+  :hook (after-init . global-evil-surround-mode))
 
-;; ;; commenting out code
-;; (use-package evil-commentary
-;;   :after evil
-;;   :ensure t
-;;   :config
-;;   (evil-commentary-mode))
+;; commenting out code
+(use-package evil-commentary
+  :after evil
+  :ensure t
+  :config
+  (evil-commentary-mode))
