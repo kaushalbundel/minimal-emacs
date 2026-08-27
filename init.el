@@ -53,7 +53,7 @@
 (setq inhibit-startup-buffer-menu t)
 (setq frame-resize-pixelwise t)
 (add-hook 'window-setup-hook 'delete-other-windows)
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.1)
 
 ;; Revert buffers automatically when underlying files change
 (setopt auto-revert-avoid-polling t)
@@ -438,8 +438,9 @@
   (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130))
 
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
-  (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110))
+  (set-face-attribute 'default nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120)
+  (set-face-attribute 'variable-pitch nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120)
+  (set-face-attribute 'corfu-default nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120))
 
  ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)
