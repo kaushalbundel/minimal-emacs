@@ -674,6 +674,12 @@
 (use-package yaml-mode)
 (use-package json-mode)
 
+;; compilation shortcuts applicable for prog mode
+;; Meta Note: all generic prog mode related keywords should come here
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (keymap-local-set "C-c c" #'compile)
+            (keymap-local-set "C-c r" #'recompile)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Eglot, the built-in LSP client for Emacs
