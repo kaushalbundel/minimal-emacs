@@ -202,7 +202,9 @@
   (add-hook mode (lambda ()(display-line-numbers-mode 0))))
 (setopt display-line-numbers-type t)
 
-(add-hook 'text-mode-hook 'visual-line-mode)
+;;(add-hook 'text-mode-hook 'visual-line-mode) ;; commented for testing
+(dolist (hook '(text-mode-hook prog-mode-hook))
+  (add-hook hook 'visual-line-mode))
 (dolist (hook '(text-mode-hook prog-mode-hook))
   (add-hook hook 'hl-line-mode))
 
@@ -431,8 +433,9 @@
 
 (cond
  ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "SF Mono" :weight 'regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'regular :height 120))
+  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130)
+  (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130)
+  (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130))
 
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
