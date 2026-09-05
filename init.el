@@ -350,7 +350,7 @@
   :hook (vertico-mode . marginalia-mode))
 
 (use-package corfu
-  :hook (after-init . global-corfu-mode)
+;;  :hook (after-init . global-corfu-mode)
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.4)
@@ -675,7 +675,7 @@
 (use-package json-mode)
 
 ;; compilation shortcuts applicable for prog mode
-;; Meta Note: all generic prog mode related keywords should come here
+;; Meta Note: all generic prog mode related keyword bindings should come here
 (add-hook 'prog-mode-hook
           (lambda ()
             (keymap-local-set "C-c c" #'compile)
