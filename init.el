@@ -236,26 +236,29 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package modus-themes
-  :defer t
+(use-package doom-themes
+  :ensure t
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; for treemacs users
+  (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
   :config
-  (setq modus-themes-italic-constructs t
-        modus-themes-bold-constructs nil
-        modus-themes-mixed-fonts t
-        modus-themes-variable-pitch-ui nil
-        modus-themes-custom-auto-reload t
-        modus-themes-disable-other-themes t
-        modus-themes-prompts '(italic bold)
-        modus-themes-headings
-        '((1 . (variable-pitch 1.1))
-          (2 . (1.1))
-          (agenda-date . (1.1))
-          (agenda-structure . (variable-pitch light 1.1))
-          (t . (1.1)))))
+  (load-theme 'doom-solarized-dark-high-contrast t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
-(load-theme 'modus-operandi :no-confirm)
 
 (winner-mode 1)
 
@@ -414,16 +417,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(apheleia auto-package-update avy cape consult-denote consult-eglot
-              corfu-terminal crux denote-journal doom-modeline
-              embark-consult emmet-mode evil-collection
-              evil-commentary evil-surround exec-path-from-shell
-              indent-bars json-mode kind-icon magit marginalia
-              markdown-mode modus-themes nerd-icons-completion
-              nerd-icons-dired orderless org-download org-modern
-              rainbow-delimiters rainbow-mode spacious-padding
-              swift-mode swift-ts-mode uv-mode vertico wgrep yaml-mode)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -511,16 +505,15 @@
                  :immediate-finish nil
                  :kill-buffer t
                  :jump-to-captured t)))
-
+;; Note: This package is causing issue in how fonts are being rendered 
 (use-package spacious-padding
   :config
   (setq spacious-padding-widths
-        '( :internal-border-width 15
-           :header-line-width 4
-           :mode-line-width 2
-           :tab-width 2
-           :right-divider-width 24
-           :scroll-bar-width 8))
+        '( ;;:internal-border-width 15
+           ;;:header-line-width 4
+           ;;:tab-width 2
+           ;;:right-divider-width 24
+           ;;:scroll-bar-width 8))
   (spacious-padding-mode 1))
 
 (defun kaushal/copy-buffer-directory-path ()
