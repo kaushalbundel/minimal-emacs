@@ -509,11 +509,11 @@
 (use-package spacious-padding
   :config
   (setq spacious-padding-widths
-        '( ;;:internal-border-width 15
-           ;;:header-line-width 4
-           ;;:tab-width 2
-           ;;:right-divider-width 24
-           ;;:scroll-bar-width 8))
+        '( :internal-border-width 15
+           :header-line-width 4
+           :tab-width 2
+           :right-divider-width 24
+           :scroll-bar-width 8))
   (spacious-padding-mode 1))
 
 (defun kaushal/copy-buffer-directory-path ()
