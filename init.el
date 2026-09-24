@@ -269,7 +269,8 @@
    ("<C-S-return>" . 'crux-smart-open-line-above)
    ("<C-return>" . 'crux-smart-open-line)
    ("C-c P" . 'crux-kill-buffer-truename)
-   ("M-o" . 'crux-other-window-or-switch-buffer)))
+   ("M-o" . 'crux-other-window-or-switch-buffer)
+   ("C-c o" . 'crux-open-with)))
 
 ;; Performance tweaks (emacs-redux)
 (setq-default bidi-display-reordering 'left-to-right
