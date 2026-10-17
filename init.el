@@ -38,6 +38,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; transparency testing
+(add-to-list 'default-frame-alist '(alpha-background . 98))
 (setopt inhibit-splash-screen t)
 (setopt initial-major-mode 'fundamental-mode)
 (setopt display-time-default-load-average nil)
@@ -54,6 +56,7 @@
 (setq frame-resize-pixelwise t)
 (add-hook 'window-setup-hook 'delete-other-windows)
 (setq-default line-spacing 0.1)
+
 
 ;; Revert buffers automatically when underlying files change
 (setopt auto-revert-avoid-polling t)
@@ -245,7 +248,7 @@
   ;; for treemacs users
   (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
   :config
-  (load-theme 'doom-solarized-dark-high-contrast t)
+  (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -354,7 +357,7 @@
   :hook (vertico-mode . marginalia-mode))
 
 (use-package corfu
-;;  :hook (after-init . global-corfu-mode)
+  ;;  :hook (after-init . global-corfu-mode)
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.4)
@@ -418,7 +421,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(apheleia auto-package-update avy cape consult-denote consult-eglot
+              corfu-terminal crux dart-mode denote-journal
+              doom-modeline doom-themes embark-consult emmet-mode
+              exec-path-from-shell highlight-indent-guides indent-bars
+              json-mode kind-icon magit marginalia markdown-mode
+              modus-themes nerd-icons-completion nerd-icons-dired
+              orderless org-download org-modern rainbow-delimiters
+              rainbow-mode spacious-padding surround swift-mode
+              uv-mode vertico wgrep yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -433,9 +445,9 @@
   (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130))
 
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120)
-  (set-face-attribute 'corfu-default nil :family "ComicShanns Mono Nerd Font" :weight 'Regular :height 120))
+  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font Mono" :weight 'Regular :height 120)
+  (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font Mono" :weight 'Regular :height 120)
+  (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'Regular :height 120))
 
  ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)
@@ -506,7 +518,7 @@
                  :immediate-finish nil
                  :kill-buffer t
                  :jump-to-captured t)))
-;; Note: This package is causing issue in how fonts are being rendered 
+;; Note: This package is causing issue in how fonts are being rendered
 (use-package spacious-padding
   :config
   (setq spacious-padding-widths
@@ -655,9 +667,9 @@
 
 ;; swift programming
 (use-package swift-mode
-    :ensure t
-    :mode "\\.swift\\'"
-    :interpreter "swift")
+  :ensure t
+  :mode "\\.swift\\'"
+  :interpreter "swift")
 
 
 (use-package magit
@@ -797,3 +809,14 @@
 ;;   :ensure t
 ;;   :config
 ;;   (evil-commentary-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Dart programming
+(use-package dart-mode
+  :ensure t
+  :hook (dart-mode . eglot-ensure)
+  :config
+  ;; Tell Eglot how to spawn the Dart Analysis Server
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(dart-mode . ("dart" "language-server" "--protocol=lsp")))))
