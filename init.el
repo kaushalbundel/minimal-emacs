@@ -440,9 +440,9 @@
 
 (cond
  ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130)
-  (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130)
-  (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 130))
+  (set-face-attribute 'default nil :family "SF Mono" :weight 'regular :height 120)
+  (set-face-attribute 'variable-pitch nil :family "SF Mono" :weight 'regular :height 130)
+  (set-face-attribute 'corfu-default nil :family "SF Mono" :weight 'regular :height 130))
 
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font Mono" :weight 'Regular :height 120)
