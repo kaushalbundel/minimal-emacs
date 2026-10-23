@@ -39,7 +39,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; transparency testing
-(add-to-list 'default-frame-alist '(alpha-background . 98))
+(add-to-list 'default-frame-alist '(alpha-background . 98)) ;; does not work with windows and macos
 (setopt inhibit-splash-screen t)
 (setopt initial-major-mode 'fundamental-mode)
 (setopt display-time-default-load-average nil)
@@ -450,8 +450,8 @@
   (set-face-attribute 'corfu-default nil :family "ComicShannsMono Nerd Font Mono" :weight 'Regular :height 120))
 
  ((equal system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)
-  (set-face-attribute 'variable-pitch nil :family "AdwaitaMono Nerd Font Mono" :weight 'regular :height 110)))
+  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 120)
+  (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font Mono" :weight 'regular :height 120)))
 
 (use-package nerd-icons)
 
